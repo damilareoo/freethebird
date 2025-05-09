@@ -53,4 +53,3 @@ export default function QuizQuestion({ question, onAnswer }: QuizQuestionProps) 
     </div>
   )
 }
-

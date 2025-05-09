@@ -571,4 +571,3 @@ export const expandedQuizData: QuizQuestion[] = [
     correctAnswer: "Your Legs",
   },
 ]
-

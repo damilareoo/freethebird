@@ -56,4 +56,3 @@ export const quizData: QuizQuestion[] = [
     correctAnswer: "A Table",
   },
 ]
-

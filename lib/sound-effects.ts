@@ -65,4 +65,3 @@ export function preloadSounds() {
     audioCache[soundName] = audio
   })
 }
-

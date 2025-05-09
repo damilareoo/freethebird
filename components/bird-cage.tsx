@@ -151,4 +151,3 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
     </div>
   )
 }
-
