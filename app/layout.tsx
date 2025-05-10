@@ -3,21 +3,22 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
 
-// Load GT America font
+// Load GT America font with correct paths
+// The paths should be relative to the public directory, not including "public" in the path
 const gtAmerica = localFont({
   src: [
     {
-      path: "../public/fonts/GT-America-Standard-Regular.woff2",
+      path: "/fonts/GT-America-Standard-Regular.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../public/fonts/GT-America-Standard-Medium.woff2",
+      path: "/fonts/GT-America-Standard-Medium.woff2",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../public/fonts/GT-America-Standard-Bold.woff2",
+      path: "/fonts/GT-America-Standard-Bold.woff2",
       weight: "700",
       style: "normal",
     },
