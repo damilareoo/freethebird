@@ -1,6 +1,6 @@
 "use client"
 
-// Default sound effect URLs
+// Sound effect URLs - updated to use the correct file names
 const SOUNDS = {
   BUTTON_CLICK: "/sounds/button-click.wav",
   CORRECT_ANSWER: "/sounds/correct-answer.wav",
@@ -60,18 +60,9 @@ export function preloadSounds() {
 
   Object.keys(SOUNDS).forEach((key) => {
     const soundName = key as keyof typeof SOUNDS
-    try {
-      const audio = new Audio()
-      audio.preload = "auto"
-      audio.src = SOUNDS[soundName]
-      audioCache[soundName] = audio
-    } catch (error) {
-      console.log(`Error preloading sound ${soundName}:`, error)
-    }
+    const audio = new Audio(SOUNDS[soundName])
+    audio.preload = "auto"
+    audioCache[soundName] = audio
   })
 }
 
-// Add a function to check if audio is enabled in the browser
-export function isAudioEnabled(): boolean {
-  return typeof window !== "undefined" && typeof Audio !== "undefined"
-}

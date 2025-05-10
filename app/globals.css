@@ -2,140 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --freedom-primary: 196 90% 45%;
-  --freedom-secondary: 160 80% 40%;
-  --freedom-accent: 40 100% 60%;
-  --cage-dark: 215 35% 25%;
-  --cage-medium: 215 25% 45%;
-  --cage-light: 215 20% 65%;
-  --sky-light: 200 90% 95%;
-  --sky-medium: 200 80% 85%;
-  --background: 200 90% 98%;
-  --foreground: 215 35% 25%;
-  --card: 0 0% 100%;
-  --card-foreground: 215 35% 25%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 215 35% 25%;
-  --primary: 196 90% 45%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 160 80% 40%;
-  --secondary-foreground: 0 0% 100%;
-  --accent: 40 100% 60%;
-  --accent-foreground: 215 35% 25%;
-  --muted: 215 20% 90%;
-  --muted-foreground: 215 25% 45%;
-  --destructive: 0 90% 60%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 215 20% 85%;
-  --input: 215 20% 85%;
-  --ring: 196 90% 45%;
-  --radius: 1rem;
-}
+@layer base {
+  :root {
+    --background: 48 100% 97%;
+    --foreground: 30 10% 10%;
 
-body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-    "Helvetica Neue", sans-serif;
-}
+    --card: 0 0% 100%;
+    --card-foreground: 30 10% 10%;
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-a,
-button,
-input,
-textarea,
-select,
-li {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-    "Helvetica Neue", sans-serif;
-}
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 10% 10%;
 
-h1 {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-}
+    --primary: 28 96% 35%;
+    --primary-foreground: 60 9.1% 97.8%;
 
-h2 {
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-}
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
 
-h3,
-h4 {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-}
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
 
-@layer components {
-  .card-glass {
-    @apply bg-white rounded-lg shadow-sm transition-all duration-300;
-  }
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
 
-  .card-glass:hover {
-    @apply shadow-md;
-  }
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
 
-  .btn-primary,
-  .btn-accent {
-    @apply bg-blue-500 text-white font-medium px-5 py-2.5 rounded-full transition-all duration-300 shadow-sm;
-  }
+    --border: 30 5.9% 90%;
+    --input: 30 5.9% 90%;
+    --ring: 28 96% 35%;
 
-  .btn-primary:hover,
-  .btn-accent:hover {
-    @apply -translate-y-0.5 shadow-md;
-  }
-
-  .btn-primary:disabled,
-  .btn-accent:disabled {
-    @apply opacity-50 pointer-events-none;
-  }
-
-  .option-card {
-    @apply flex items-center gap-3 rounded-xl border p-3 transition-all cursor-pointer shadow-sm;
-  }
-
-  .option-card:hover {
-    @apply bg-blue-500/5 border-blue-500/20 shadow;
-  }
-
-  .option-card.selected {
-    @apply bg-blue-500/10 border-blue-500/30;
-  }
-
-  .progress-container {
-    @apply h-2 bg-gray-200 rounded-full overflow-hidden;
-  }
-
-  .progress-bar {
-    @apply h-full rounded-full transition-all duration-500 ease-out;
-  }
-
-  .feedback-message {
-    @apply text-center py-6 px-3 rounded-xl transition-all duration-300;
-  }
-
-  .feedback-message.correct {
-    @apply text-green-500 bg-green-500/5 border border-green-500/10;
-  }
-
-  .feedback-message.incorrect {
-    @apply text-red-500 bg-red-500/5 border border-red-500/10;
+    --radius: 0.5rem;
   }
 }
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
