@@ -2,9 +2,9 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{ts,tsx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
@@ -53,17 +53,15 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-          // Cage/Captivity colors
-          "freedom-primary": "hsl(var(--freedom-primary))",
-          "freedom-secondary": "hsl(var(--freedom-secondary))",
-          "freedom-accent": "hsl(var(--freedom-accent))",
-          "cage-dark": "hsl(var(--cage-dark))",
-          "cage-medium": "hsl(var(--cage-medium))",
-          "cage-light": "hsl(var(--cage-light))",
-          // Sky colors
-          "sky-light": "hsl(var(--sky-light))",
-          "sky-medium": "hsl(var(--sky-medium))",
         },
+        "freedom-primary": "#0096c7",
+        "freedom-secondary": "#10b981",
+        "freedom-accent": "#ffbb33",
+        "cage-dark": "#2d4a6d",
+        "cage-medium": "#4a6fa5",
+        "cage-light": "#8eabd0",
+        "sky-light": "#e0f7ff",
+        "sky-medium": "#c5e8ff",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -86,5 +84,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 }

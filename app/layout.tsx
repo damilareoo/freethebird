@@ -1,8 +1,7 @@
 import type React from "react"
-import type { Metadata } from "next"
 import "./globals.css"
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Free the Bird",
   description: "Solve brain teasers to free the caged bird!",
     generator: 'v0.dev'
