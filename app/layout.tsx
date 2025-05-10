@@ -1,11 +1,32 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+// Load GT America font
+const gtAmerica = localFont({
+  src: [
+    {
+      path: "../public/fonts/GT-America-Standard-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/GT-America-Standard-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/GT-America-Standard-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
+  variable: "--font-gt-america",
+})
 
-// Update the getBaseUrl function to handle missing VERCEL_URL more gracefully
+// Simplified base URL function that doesn't rely on VERCEL_URL
 const getBaseUrl = () => {
   // For production deployments on Vercel
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
@@ -50,8 +71,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head />
-      <body className={inter.className}>{children}</body>
+      <body className={`${gtAmerica.variable} font-sans antialiased`}>{children}</body>
     </html>
   )
 }

@@ -11,8 +11,22 @@ interface BirdCageProps {
 export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCageProps) {
   const isFree = freedomLevel === maxLevel && gameState === "completed"
 
+  // Colors that tell the story
+  const cageColor = "#2D4A6D" // cage-dark
+  const birdBodyColor = "#FFBB33" // freedom-accent
+  const birdAccentColor = "#FF9500" // darker accent
+  const freedomColor = "#10B981" // freedom-secondary
+
+  // Calculate progress for visual effects
+  const progressPercent = (freedomLevel / maxLevel) * 100
+
   return (
-    <div className="relative w-full max-w-[180px] sm:max-w-[220px] md:max-w-xs aspect-square">
+    <motion.div
+      className="relative w-full max-w-[180px] sm:max-w-[200px] md:max-w-[220px] aspect-square"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       {/* Cage */}
       <motion.div
         className={`absolute inset-0 flex items-center justify-center ${isFree ? "opacity-50" : ""}`}
@@ -24,11 +38,35 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
       >
         <svg viewBox="0 0 200 240" className="w-full h-full">
           {/* Cage top */}
-          <motion.path d="M40,40 C40,20 160,20 160,40" stroke="#8B4513" strokeWidth="4" fill="none" />
+          <motion.path
+            d="M40,40 C40,20 160,20 160,40"
+            stroke={cageColor}
+            strokeWidth="4"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          />
 
           {/* Cage hook */}
-          <motion.path d="M100,20 L100,5" stroke="#8B4513" strokeWidth="3" fill="none" />
-          <motion.circle cx="100" cy="5" r="3" fill="#8B4513" />
+          <motion.path
+            d="M100,20 L100,5"
+            stroke={cageColor}
+            strokeWidth="3"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          />
+          <motion.circle
+            cx="100"
+            cy="5"
+            r="3"
+            fill={cageColor}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3, delay: 0.8 }}
+          />
 
           {/* Cage bars */}
           {[0, 1, 2, 3, 4, 5, 6].map((i) => {
@@ -42,17 +80,52 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
                 y1="40"
                 x2={x}
                 y2="200"
-                stroke="#8B4513"
+                stroke={cageColor}
                 strokeWidth="3"
-                initial={{ opacity: 1 }}
-                animate={{ opacity: isFree ? 0.3 : opacity }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                initial={{ pathLength: 0 }}
+                animate={{
+                  pathLength: 1,
+                  opacity: isFree ? 0.3 : opacity,
+                }}
+                transition={{
+                  pathLength: { duration: 0.5, delay: 0.4 + i * 0.1 },
+                  opacity: { duration: 0.5, delay: i * 0.1 },
+                }}
               />
             )
           })}
 
           {/* Cage bottom */}
-          <motion.path d="M40,200 C40,220 160,220 160,200" stroke="#8B4513" strokeWidth="4" fill="none" />
+          <motion.path
+            d="M40,200 C40,220 160,220 160,200"
+            stroke={cageColor}
+            strokeWidth="4"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 1, delay: 1.2 }}
+          />
+
+          {/* Freedom glow - appears as the bird gets closer to freedom */}
+          {progressPercent > 0 && (
+            <motion.circle
+              cx="100"
+              cy="120"
+              r="70"
+              fill={`url(#freedomGradient)`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: progressPercent / 200 }}
+              transition={{ duration: 1 }}
+            />
+          )}
+
+          {/* Define gradient for freedom glow */}
+          <defs>
+            <radialGradient id="freedomGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+              <stop offset="0%" stopColor={freedomColor} stopOpacity="0.3" />
+              <stop offset="100%" stopColor={freedomColor} stopOpacity="0" />
+            </radialGradient>
+          </defs>
         </svg>
       </motion.div>
 
@@ -77,14 +150,15 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
             cy="50"
             rx="25"
             ry="20"
-            fill="#FFD700"
+            fill={birdBodyColor}
+            initial={{ scale: 0 }}
             animate={{
-              fill: isFree ? "#FFD700" : ["#FFD700", "#FFC700", "#FFD700"],
-              scale: [1, 1.05, 1],
+              scale: 1,
+              fill: isFree ? birdBodyColor : [birdBodyColor, birdAccentColor, birdBodyColor],
             }}
             transition={{
-              fill: { duration: 2, repeat: Number.POSITIVE_INFINITY },
-              scale: { duration: 1, repeat: Number.POSITIVE_INFINITY },
+              scale: { duration: 0.5, delay: 1.5 },
+              fill: { duration: 2, repeat: Number.POSITIVE_INFINITY, delay: 2 },
             }}
           />
 
@@ -93,61 +167,111 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
             cx="75"
             cy="40"
             r="12"
-            fill="#FFD700"
+            fill={birdBodyColor}
+            initial={{ scale: 0 }}
             animate={{
-              fill: isFree ? "#FFD700" : ["#FFD700", "#FFC700", "#FFD700"],
+              scale: 1,
+              fill: isFree ? birdBodyColor : [birdBodyColor, birdAccentColor, birdBodyColor],
             }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+            transition={{
+              scale: { duration: 0.5, delay: 1.7 },
+              fill: { duration: 2, repeat: Number.POSITIVE_INFINITY, delay: 2 },
+            }}
           />
 
           {/* Bird eye */}
-          <circle cx="80" cy="37" r="2" fill="#000" />
+          <motion.circle
+            cx="80"
+            cy="37"
+            r="2"
+            fill="#000"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3, delay: 2 }}
+          />
 
           {/* Bird beak */}
           <motion.path
             d="M85,40 L95,38 L85,43"
-            fill="#FF6B00"
-            animate={{ rotate: isFree ? [0, 5, 0] : 0 }}
-            transition={{ duration: 0.5, repeat: isFree ? Number.POSITIVE_INFINITY : 0, repeatDelay: 1 }}
+            fill="#FF7700"
+            initial={{ scale: 0 }}
+            animate={{
+              scale: 1,
+              rotate: isFree ? [0, 5, 0] : 0,
+            }}
+            transition={{
+              scale: { duration: 0.3, delay: 1.9 },
+              rotate: { duration: 0.5, repeat: isFree ? Number.POSITIVE_INFINITY : 0, repeatDelay: 1, delay: 2 },
+            }}
           />
 
           {/* Bird wing */}
           <motion.path
             d="M50,40 Q60,25 40,30 Q50,40 50,40"
-            fill="#FFC700"
+            fill={birdAccentColor}
+            initial={{ scale: 0 }}
             animate={{
+              scale: 1,
               rotate: isFree ? [0, 20, 0, -20, 0] : [0, 5, 0],
               originX: 50,
               originY: 40,
             }}
             transition={{
-              duration: isFree ? 0.5 : 2,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatDelay: isFree ? 0 : 1,
+              scale: { duration: 0.3, delay: 1.8 },
+              rotate: {
+                duration: isFree ? 0.5 : 2,
+                repeat: Number.POSITIVE_INFINITY,
+                repeatDelay: isFree ? 0 : 1,
+                delay: 2,
+              },
             }}
           />
 
           {/* Bird tail */}
           <motion.path
             d="M25,50 L10,40 L10,60 Z"
-            fill="#FFC700"
-            animate={{ rotate: isFree ? [0, 5, -5, 0] : 0 }}
-            transition={{ duration: 1, repeat: isFree ? Number.POSITIVE_INFINITY : 0 }}
+            fill={birdAccentColor}
+            initial={{ scale: 0 }}
+            animate={{
+              scale: 1,
+              rotate: isFree ? [0, 5, -5, 0] : 0,
+            }}
+            transition={{
+              scale: { duration: 0.3, delay: 1.6 },
+              rotate: { duration: 1, repeat: isFree ? Number.POSITIVE_INFINITY : 0, delay: 2 },
+            }}
           />
         </svg>
       </motion.div>
 
-      {/* Freedom message */}
+      {/* Freedom particles - only show when bird is free */}
       {isFree && (
-        <motion.div
-          className="absolute top-full left-0 right-0 text-center mt-2 sm:mt-4 text-amber-800 font-bold text-base sm:text-xl"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-        >
-          Free at last!
+        <motion.div className="absolute inset-0 pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1.5 h-1.5 rounded-full bg-freedom-accent/70"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: [0, 1, 0],
+                scale: [0, 1, 0],
+                y: [0, -Math.random() * 100 - 50],
+                x: [(Math.random() - 0.5) * 40, (Math.random() - 0.5) * 80],
+              }}
+              transition={{
+                duration: 2 + Math.random() * 2,
+                delay: 1 + Math.random() * 0.5,
+                repeat: Number.POSITIVE_INFINITY,
+                repeatDelay: Math.random() * 2,
+              }}
+            />
+          ))}
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }

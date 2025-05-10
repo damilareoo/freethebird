@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -51,18 +54,17 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        amber: {
-          50: "#fffbeb",
-          100: "#fef3c7",
-          200: "#fde68a",
-          300: "#fcd34d",
-          400: "#fbbf24",
-          500: "#f59e0b",
-          600: "#d97706",
-          700: "#b45309",
-          800: "#92400e",
-          900: "#78350f",
-        },
+        // Cage/Captivity colors
+        "cage-dark": "hsl(var(--cage-dark))",
+        "cage-medium": "hsl(var(--cage-medium))",
+        "cage-light": "hsl(var(--cage-light))",
+        // Freedom colors
+        "freedom-primary": "hsl(var(--freedom-primary))",
+        "freedom-secondary": "hsl(var(--freedom-secondary))",
+        "freedom-accent": "hsl(var(--freedom-accent))",
+        // Sky colors
+        "sky-light": "hsl(var(--sky-light))",
+        "sky-medium": "hsl(var(--sky-medium))",
       },
       borderRadius: {
         lg: "var(--radius)",
