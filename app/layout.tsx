@@ -1,31 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import localFont from "next/font/local"
 import "./globals.css"
-
-// Load GT America font with correct paths
-// The paths should be relative to the public directory, not including "public" in the path
-const gtAmerica = localFont({
-  src: [
-    {
-      path: "/fonts/GT-America-Standard-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "/fonts/GT-America-Standard-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "/fonts/GT-America-Standard-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  display: "swap",
-  variable: "--font-gt-america",
-})
 
 // Simplified base URL function that doesn't rely on VERCEL_URL
 const getBaseUrl = () => {
@@ -72,7 +47,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${gtAmerica.variable} font-sans antialiased`}>{children}</body>
+      <body className="font-sans antialiased">{children}</body>
     </html>
   )
 }

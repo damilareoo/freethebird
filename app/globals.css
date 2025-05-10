@@ -64,10 +64,11 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-gt-america), system-ui, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+      "Open Sans", "Helvetica Neue", sans-serif;
   }
 
-  /* Typography - Using GT America typeface */
+  /* Typography - Using system fonts */
   h1,
   h2,
   h3,
@@ -82,7 +83,8 @@
   textarea,
   select,
   li {
-    font-family: var(--font-gt-america), system-ui, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+      "Open Sans", "Helvetica Neue", sans-serif;
   }
 
   /* Primary size - for headings and important content */
