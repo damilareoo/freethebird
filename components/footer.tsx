@@ -1,6 +1,9 @@
-import Link from "next/link"
+"use client"
 
-function SpotifyLogo({ size = 24 }: { size?: number }) {
+import Link from "next/link"
+import { motion } from "framer-motion"
+
+function SpotifyLogo({ size = 16 }: { size?: number }) {
   return (
     <div style={{ width: size, height: size }} className="relative">
       <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
@@ -12,14 +15,19 @@ function SpotifyLogo({ size = 24 }: { size?: number }) {
 
 export default function Footer() {
   return (
-    <footer className="w-full max-w-4xl mx-auto mt-8 text-center text-amber-700 text-sm">
-      <div className="flex items-center justify-center gap-2">
+    <motion.footer
+      className="w-full max-w-4xl mx-auto py-2 sm:py-3 text-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.8 }}
+    >
+      <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-indigo-600">
         <span>Built with love, pain and music by</span>
         <Link
           href="https://x.com/damilare_oo"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-medium text-amber-800 hover:text-amber-900 transition-colors"
+          className="font-medium text-indigo-700 hover:text-indigo-900 transition-all hover:-translate-y-0.5"
         >
           Damilare
         </Link>
@@ -27,13 +35,12 @@ export default function Footer() {
           href="https://open.spotify.com/track/2GnE8rMDgfWBwGmwrUbCsQ?si=2b324574a4274089"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-green-500 hover:text-green-600 transition-colors"
+          className="text-green-500 hover:text-green-600 transition-all hover:-translate-y-0.5"
           aria-label="Listen on Spotify"
         >
-          <SpotifyLogo size={18} />
+          <SpotifyLogo />
         </Link>
       </div>
-    </footer>
+    </motion.footer>
   )
 }
-
