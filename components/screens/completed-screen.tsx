@@ -5,21 +5,27 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useGameStore } from "@/lib/game-state"
 import { useEffect } from "react"
-import confetti from "canvas-confetti"
+
+// Make sure confetti is only imported and used on the client side
+import dynamic from "next/dynamic"
+const confetti = dynamic(() => import("canvas-confetti"), { ssr: false })
 
 export default function CompletedScreen() {
   const { restartGame, isLoading, correctAnswers, availableQuestions, allCorrect } = useGameStore()
 
   // Trigger confetti if all answers are correct
   useEffect(() => {
-    if (allCorrect) {
+    if (allCorrect && typeof window !== "undefined") {
       setTimeout(() => {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ["#FFD700", "#FF8C00", "#32CD32", "#87CEEB", "#9370DB"],
-        })
+        // Check if confetti exists before calling it
+        if (typeof confetti === "function") {
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ["#FFD700", "#FF8C00", "#32CD32", "#87CEEB", "#9370DB"],
+          })
+        }
       }, 300)
     }
   }, [allCorrect])
