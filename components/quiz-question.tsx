@@ -6,24 +6,18 @@ import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import type { QuizQuestion as QuizQuestionType } from "@/lib/quiz-data"
-// import { playSound } from "@/lib/sounds" // Removed
 
 interface QuizQuestionProps {
   question: QuizQuestionType
   onAnswer: (isCorrect: boolean) => void
-} // Removed soundEnabled
+}
 
 export default function QuizQuestion({ question, onAnswer }: QuizQuestionProps) {
-  // Removed soundEnabled
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSelectAnswer = (answer: string) => {
     setSelectedAnswer(answer)
-    // Play click sound
-    // if (soundEnabled) { // Removed
-    //   playSound("BUTTON_CLICK") // Removed
-    // } // Removed
   }
 
   const handleSubmit = () => {

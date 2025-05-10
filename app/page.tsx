@@ -1,12 +1,11 @@
 import BirdGame from "@/components/bird-game"
 import Footer from "@/components/footer"
-import SiteImage from "@/components/site-image"
 import FloatingElements from "@/components/floating-elements"
 
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-between py-6 px-4 sm:py-8 sm:px-6 relative overflow-hidden">
-      {/* Background gradient - matching the image */}
+      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-sky-light to-sky-medium -z-10" />
 
       {/* Background decorative elements */}
@@ -16,7 +15,6 @@ export default function Home() {
       </div>
 
       <FloatingElements />
-      <SiteImage />
       <BirdGame />
       <Footer />
     </main>

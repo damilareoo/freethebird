@@ -2,292 +2,153 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    /* Color palette that tells the story of freedom */
-    /* Cage/Captivity colors - muted, constrained */
-    --cage-dark: 215 35% 25%;
-    --cage-medium: 215 25% 45%;
-    --cage-light: 215 20% 65%;
-
-    /* Freedom colors - vibrant, open */
-    --freedom-primary: 196 90% 45%;
-    --freedom-secondary: 160 80% 40%;
-    --freedom-accent: 40 100% 60%;
-
-    /* Sky colors - representing the open sky */
-    --sky-light: 200 90% 95%;
-    --sky-medium: 200 80% 85%;
-
-    /* Base UI colors */
-    --background: 200 90% 98%;
-    --foreground: 215 35% 25%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 215 35% 25%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 35% 25%;
-
-    --primary: 196 90% 45%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 160 80% 40%;
-    --secondary-foreground: 0 0% 100%;
-
-    --accent: 40 100% 60%;
-    --accent-foreground: 215 35% 25%;
-
-    --muted: 215 20% 90%;
-    --muted-foreground: 215 25% 45%;
-
-    --destructive: 0 90% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 215 20% 85%;
-    --input: 215 20% 85%;
-    --ring: 196 90% 45%;
-
-    --radius: 1rem;
-  }
+:root {
+  --freedom-primary: 196 90% 45%;
+  --freedom-secondary: 160 80% 40%;
+  --freedom-accent: 40 100% 60%;
+  --cage-dark: 215 35% 25%;
+  --cage-medium: 215 25% 45%;
+  --cage-light: 215 20% 65%;
+  --sky-light: 200 90% 95%;
+  --sky-medium: 200 80% 85%;
+  --background: 200 90% 98%;
+  --foreground: 215 35% 25%;
+  --card: 0 0% 100%;
+  --card-foreground: 215 35% 25%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 215 35% 25%;
+  --primary: 196 90% 45%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 160 80% 40%;
+  --secondary-foreground: 0 0% 100%;
+  --accent: 40 100% 60%;
+  --accent-foreground: 215 35% 25%;
+  --muted: 215 20% 90%;
+  --muted-foreground: 215 25% 45%;
+  --destructive: 0 90% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 215 20% 85%;
+  --input: 215 20% 85%;
+  --ring: 196 90% 45%;
+  --radius: 1rem;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  html {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
-
-  /* Primary size - for headings and important content */
-  h1 {
-    @apply text-3xl font-medium tracking-tight leading-tight text-freedom-primary;
-  }
-
-  h2 {
-    @apply text-2xl font-medium tracking-tight leading-tight text-cage-dark;
-  }
-
-  h3,
-  h4 {
-    @apply text-xl font-medium tracking-tight leading-tight;
-  }
-
-  /* Secondary size - for body text and UI elements */
-  p,
-  span,
-  a,
-  button,
-  input,
-  textarea,
-  select,
-  li,
-  h5,
-  h6 {
-    @apply text-base leading-relaxed;
-  }
-
-  /* Compact spacing system */
-  .space-xs {
-    @apply p-2;
-  }
-
-  .space-sm {
-    @apply p-3 sm:p-4;
-  }
-
-  .space-md {
-    @apply p-4 sm:p-5;
-  }
-
-  .space-lg {
-    @apply p-5 sm:p-6;
-  }
-
-  .gap-xs {
-    @apply gap-2;
-  }
-
-  .gap-sm {
-    @apply gap-3 sm:gap-4;
-  }
-
-  .gap-md {
-    @apply gap-4 sm:gap-5;
-  }
-
-  .gap-lg {
-    @apply gap-5 sm:gap-6;
-  }
-
-  .mb-xs {
-    @apply mb-2;
-  }
-
-  .mb-sm {
-    @apply mb-3 sm:mb-4;
-  }
-
-  .mb-md {
-    @apply mb-4 sm:mb-5;
-  }
-
-  .mb-lg {
-    @apply mb-5 sm:mb-6;
-  }
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
 }
 
-@layer components {
-  /* Card styles - compact and clean */
-  .card-glass {
-    @apply bg-white rounded-2xl transition-all duration-300 shadow-sm;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-  }
-
-  .card-glass:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
-  }
-
-  /* Button styles - compact and clean */
-  .btn-primary {
-    @apply bg-freedom-primary text-white font-medium px-5 py-2.5 rounded-full transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none;
-    box-shadow: 0 2px 4px rgba(0, 124, 186, 0.2);
-  }
-
-  .btn-primary:hover {
-    box-shadow: 0 4px 8px rgba(0, 124, 186, 0.3);
-  }
-
-  .btn-accent {
-    @apply bg-freedom-primary text-white font-medium px-5 py-2.5 rounded-full transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none;
-    box-shadow: 0 2px 4px rgba(0, 124, 186, 0.2);
-  }
-
-  .btn-accent:hover {
-    box-shadow: 0 4px 8px rgba(0, 124, 186, 0.3);
-  }
-
-  /* Option card styles - for quiz options */
-  .option-card {
-    @apply flex items-center space-x-3 rounded-xl border p-3 transition-all cursor-pointer;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-  }
-
-  .option-card:hover {
-    @apply bg-freedom-primary/5 border-freedom-primary/20;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
-
-  .option-card.selected {
-    @apply bg-freedom-primary/10 border-freedom-primary/30;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 124, 186, 0.2) inset;
-  }
-
-  /* Progress bar styles */
-  .progress-container {
-    @apply h-2 bg-muted rounded-full overflow-hidden;
-  }
-
-  .progress-bar {
-    @apply h-full rounded-full transition-all duration-500 ease-out;
-  }
-
-  /* Feedback message styles */
-  .feedback-message {
-    @apply text-center py-6 px-3 rounded-xl transition-all duration-300;
-  }
-
-  .feedback-message.correct {
-    @apply text-freedom-secondary bg-freedom-secondary/5 border border-freedom-secondary/10;
-  }
-
-  .feedback-message.incorrect {
-    @apply text-destructive bg-destructive/5 border border-destructive/10;
-  }
+h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
 }
 
-@layer utilities {
-  /* Gradient text */
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-freedom-primary to-freedom-secondary;
-  }
+h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
 
-  /* Subtle animations */
-  .hover-lift {
-    @apply transition-all duration-300;
-  }
+h3,
+h4 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
 
-  .hover-lift:hover {
-    @apply -translate-y-1 shadow-lg;
-  }
+.card-glass {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
 
-  /* Focus styles */
-  .focus-ring {
-    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-freedom-primary focus-visible:ring-offset-2;
-  }
+.card-glass:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
 
-  /* Animation utilities */
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
-  }
+.btn-primary,
+.btn-accent {
+  background-color: hsl(var(--freedom-primary));
+  color: white;
+  font-weight: 500;
+  padding: 0.625rem 1.25rem;
+  border-radius: 9999px;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 124, 186, 0.2);
+}
 
-  .animate-slide-up {
-    animation: slideUp 0.5s ease-out forwards;
-  }
+.btn-primary:hover,
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 124, 186, 0.3);
+}
 
-  .animate-slide-down {
-    animation: slideDown 0.5s ease-out forwards;
-  }
+.btn-primary:disabled,
+.btn-accent:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
 
-  .animate-pulse-subtle {
-    animation: pulseSubtle 2s infinite;
-  }
+.option-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--border));
+  padding: 0.75rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+.option-card:hover {
+  background-color: rgba(0, 124, 186, 0.05);
+  border-color: rgba(0, 124, 186, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-  @keyframes slideUp {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
+.option-card.selected {
+  background-color: rgba(0, 124, 186, 0.1);
+  border-color: rgba(0, 124, 186, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 124, 186, 0.2) inset;
+}
 
-  @keyframes slideDown {
-    from {
-      transform: translateY(-20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
+.progress-container {
+  height: 0.5rem;
+  background-color: hsl(var(--muted, 215 20% 90%));
+  border-radius: 9999px;
+  overflow: hidden;
+}
 
-  @keyframes pulseSubtle {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
-  }
+.progress-bar {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.5s ease-out;
+}
+
+.feedback-message {
+  text-align: center;
+  padding: 1.5rem 0.75rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s;
+}
+
+.feedback-message.correct {
+  color: hsl(var(--freedom-secondary));
+  background-color: hsla(var(--freedom-secondary), 0.05);
+  border: 1px solid hsla(var(--freedom-secondary), 0.1);
+}
+
+.feedback-message.incorrect {
+  color: hsl(0 90% 60%);
+  background-color: hsla(0, 90%, 60%, 0.05);
+  border: 1px solid hsla(0, 90%, 60%, 0.1);
 }

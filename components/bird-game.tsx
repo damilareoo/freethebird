@@ -70,7 +70,7 @@ export default function BirdGame() {
 
       if (currentQuizIndex === availableQuestions.length - 1) {
         setGameState("completed")
-        // If all answers are correct, play the bird freed sound and trigger confetti
+        // If all answers are correct, trigger confetti
         if (isCorrect && correctAnswers + 1 === availableQuestions.length) {
           setTimeout(() => {
             // Trigger confetti
@@ -122,7 +122,7 @@ export default function BirdGame() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <h1 className="text-freedom-primary mb-1">Free the Bird</h1>
+        <h1 className="text-3xl font-medium text-freedom-primary mb-1">Free the Bird</h1>
         <p className="text-cage-medium max-w-xl mx-auto text-sm">Solve brain teasers to free the caged bird!</p>
       </motion.div>
 
@@ -140,7 +140,7 @@ export default function BirdGame() {
               >
                 <Card className="card-glass p-3 sm:p-4 overflow-hidden">
                   <motion.div variants={containerVariants} initial="hidden" animate="visible">
-                    <motion.h2 variants={itemVariants} className="text-cage-dark mb-2">
+                    <motion.h2 variants={itemVariants} className="text-cage-dark mb-2 text-xl font-medium">
                       <TypingText text="Welcome to the Challenge!" speed={40} />
                     </motion.h2>
                     <motion.p variants={itemVariants} className="mb-4 text-cage-medium">
@@ -259,7 +259,7 @@ export default function BirdGame() {
                   <motion.div variants={containerVariants} initial="hidden" animate="visible">
                     <motion.h2
                       variants={itemVariants}
-                      className={`mb-2 ${
+                      className={`mb-2 text-xl font-medium ${
                         correctAnswers === availableQuestions.length ? "text-freedom-secondary" : "text-cage-dark"
                       }`}
                     >

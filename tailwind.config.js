@@ -53,18 +53,17 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+          // Cage/Captivity colors
+          "freedom-primary": "hsl(var(--freedom-primary))",
+          "freedom-secondary": "hsl(var(--freedom-secondary))",
+          "freedom-accent": "hsl(var(--freedom-accent))",
+          "cage-dark": "hsl(var(--cage-dark))",
+          "cage-medium": "hsl(var(--cage-medium))",
+          "cage-light": "hsl(var(--cage-light))",
+          // Sky colors
+          "sky-light": "hsl(var(--sky-light))",
+          "sky-medium": "hsl(var(--sky-medium))",
         },
-        // Cage/Captivity colors
-        "cage-dark": "hsl(var(--cage-dark))",
-        "cage-medium": "hsl(var(--cage-medium))",
-        "cage-light": "hsl(var(--cage-light))",
-        // Freedom colors
-        "freedom-primary": "hsl(var(--freedom-primary))",
-        "freedom-secondary": "hsl(var(--freedom-secondary))",
-        "freedom-accent": "hsl(var(--freedom-accent))",
-        // Sky colors
-        "sky-light": "hsl(var(--sky-light))",
-        "sky-medium": "hsl(var(--sky-medium))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -87,5 +86,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 }
