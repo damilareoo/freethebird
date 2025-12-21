@@ -1,16 +1,15 @@
-import GameContainer from "@/components/game-container"
-import BackgroundElements from "@/components/background-elements"
+import BirdGame from "@/components/bird-game"
+import Footer from "@/components/footer"
+import AudioPreloader from "@/components/audio-preloader"
+import SiteImage from "@/components/site-image"
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Background elements */}
-      <BackgroundElements />
-
-      {/* Main content */}
-      <div className="flex-1 flex items-center justify-center w-full">
-        <GameContainer />
-      </div>
+    <main className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 flex flex-col items-center justify-center p-3 sm:p-4 md:p-6 lg:p-8">
+      <AudioPreloader />
+      <SiteImage />
+      <BirdGame />
+      <Footer />
     </main>
   )
 }
