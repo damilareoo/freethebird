@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 
 interface BirdCageProps {
   freedomLevel: number
@@ -10,6 +11,7 @@ interface BirdCageProps {
 
 export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCageProps) {
   const isFree = freedomLevel === maxLevel && gameState === "completed"
+  const [hasAnimated, setHasAnimated] = useState(false)
 
   // Calculate progress percentage
   const progressPercent = (freedomLevel / maxLevel) * 100
@@ -19,8 +21,59 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
   const birdBodyColor = "#FFD700" // Gold
   const birdAccentColor = "#FF8C00" // Dark orange
 
+  // Set animation flag after initial render
+  useEffect(() => {
+    setHasAnimated(true)
+  }, [])
+
+  // Bird animation variants
+  const birdVariants = {
+    idle: {
+      y: [0, -5, 0],
+      transition: {
+        y: {
+          duration: 2,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        },
+      },
+    },
+    free: {
+      y: -100,
+      scale: 1.2,
+      transition: {
+        duration: 1.5,
+        ease: [0.34, 1.56, 0.64, 1], // Spring-like effect
+      },
+    },
+  }
+
+  // Wing animation variants
+  const wingVariants = {
+    idle: {
+      rotate: [0, 5, 0],
+      transition: {
+        rotate: {
+          duration: 2,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        },
+      },
+    },
+    free: {
+      rotate: [0, 15, -15, 10, -10, 0],
+      transition: {
+        rotate: {
+          duration: 1,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        },
+      },
+    },
+  }
+
   return (
-    <div className="relative w-full max-w-[200px] sm:max-w-[220px] md:max-w-[240px] aspect-square mx-auto">
+    <div className="relative w-full max-w-[160px] sm:max-w-[180px] md:max-w-[200px] aspect-square mx-auto">
       {/* Background sky effect - only visible when bird is free */}
       {isFree && (
         <motion.div
@@ -34,11 +87,15 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
       {/* Cage */}
       <motion.div
         className={`absolute inset-0 flex items-center justify-center ${isFree ? "opacity-50" : ""}`}
+        initial={hasAnimated ? {} : { opacity: 0, scale: 0.9 }}
         animate={{
-          scale: isFree ? 0.9 : 1,
           opacity: isFree ? 0.5 : 1,
+          scale: isFree ? 0.9 : 1,
         }}
-        transition={{ duration: 0.5 }}
+        transition={{
+          duration: 0.8,
+          ease: "easeOut",
+        }}
       >
         <svg viewBox="0 0 200 240" className="w-full h-full drop-shadow-md">
           {/* Cage top */}
@@ -47,9 +104,9 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
             stroke={cageColor}
             strokeWidth="4"
             fill="none"
-            initial={{ pathLength: 0 }}
+            initial={hasAnimated ? {} : { pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
           />
 
           {/* Cage hook */}
@@ -58,18 +115,18 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
             stroke={cageColor}
             strokeWidth="3"
             fill="none"
-            initial={{ pathLength: 0 }}
+            initial={hasAnimated ? {} : { pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           />
           <motion.circle
             cx="100"
             cy="5"
             r="3"
             fill={cageColor}
-            initial={{ scale: 0 }}
+            initial={hasAnimated ? {} : { scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 0.3, delay: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
           />
 
           {/* Cage bars */}
@@ -87,14 +144,14 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
                 y2="200"
                 stroke={cageColor}
                 strokeWidth="3"
-                initial={{ pathLength: 0 }}
+                initial={hasAnimated ? {} : { pathLength: 0 }}
                 animate={{
                   pathLength: 1,
                   opacity: isFree ? 0.3 : opacity,
                 }}
                 transition={{
-                  pathLength: { duration: 0.5, delay: 0.4 + i * 0.1 },
-                  opacity: { duration: 0.5, delay: i * 0.1 },
+                  pathLength: { duration: 0.8, delay: 0.4 + i * 0.1 },
+                  opacity: { duration: 0.8, delay: i * 0.1 },
                 }}
               />
             )
@@ -106,9 +163,9 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
             stroke={cageColor}
             strokeWidth="4"
             fill="none"
-            initial={{ pathLength: 0 }}
+            initial={hasAnimated ? {} : { pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
+            transition={{ duration: 1.2, delay: 1.2 }}
           />
 
           {/* Freedom glow - appears as the bird gets closer to freedom */}
@@ -137,16 +194,9 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
       {/* Bird */}
       <motion.div
         className="absolute inset-0 flex items-center justify-center"
-        animate={{
-          y: isFree ? -100 : 0,
-          scale: isFree ? 1.2 : 1,
-          rotate: isFree ? [0, -10, 10, -5, 5, 0] : 0,
-        }}
-        transition={{
-          y: { duration: 1, delay: 0.5 },
-          scale: { duration: 0.5 },
-          rotate: { duration: 2, repeat: isFree ? Number.POSITIVE_INFINITY : 0, repeatType: "loop" },
-        }}
+        initial={hasAnimated ? {} : { opacity: 0, scale: 0.8 }}
+        animate={isFree ? "free" : "idle"}
+        variants={birdVariants}
       >
         <svg viewBox="0 0 100 100" className="w-1/2 h-1/2 drop-shadow-lg">
           {/* Bird body */}
@@ -156,7 +206,7 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
             rx="25"
             ry="20"
             fill={birdBodyColor}
-            initial={{ scale: 0 }}
+            initial={hasAnimated ? {} : { scale: 0 }}
             animate={{
               scale: 1,
               fill: isFree ? birdBodyColor : [birdBodyColor, birdAccentColor, birdBodyColor],
@@ -173,7 +223,7 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
             cy="40"
             r="12"
             fill={birdBodyColor}
-            initial={{ scale: 0 }}
+            initial={hasAnimated ? {} : { scale: 0 }}
             animate={{
               scale: 1,
               fill: isFree ? birdBodyColor : [birdBodyColor, birdAccentColor, birdBodyColor],
@@ -190,7 +240,7 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
             cy="37"
             r="2"
             fill="#000"
-            initial={{ scale: 0 }}
+            initial={hasAnimated ? {} : { scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.3, delay: 2 }}
           />
@@ -199,7 +249,7 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
           <motion.path
             d="M85,40 L95,38 L85,43"
             fill="#FF6B00"
-            initial={{ scale: 0 }}
+            initial={hasAnimated ? {} : { scale: 0 }}
             animate={{
               scale: 1,
               rotate: isFree ? [0, 5, 0] : 0,
@@ -214,29 +264,17 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
           <motion.path
             d="M50,40 Q60,25 40,30 Q50,40 50,40"
             fill={birdAccentColor}
-            initial={{ scale: 0 }}
-            animate={{
-              scale: 1,
-              rotate: isFree ? [0, 20, 0, -20, 0] : [0, 5, 0],
-              originX: 50,
-              originY: 40,
-            }}
-            transition={{
-              scale: { duration: 0.3, delay: 1.8 },
-              rotate: {
-                duration: isFree ? 0.5 : 2,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatDelay: isFree ? 0 : 1,
-                delay: 2,
-              },
-            }}
+            initial={hasAnimated ? {} : { scale: 0 }}
+            animate={isFree ? "free" : "idle"}
+            variants={wingVariants}
+            style={{ originX: 50, originY: 40 }}
           />
 
           {/* Bird tail */}
           <motion.path
             d="M25,50 L10,40 L10,60 Z"
             fill={birdAccentColor}
-            initial={{ scale: 0 }}
+            initial={hasAnimated ? {} : { scale: 0 }}
             animate={{
               scale: 1,
               rotate: isFree ? [0, 5, -5, 0] : 0,
@@ -252,10 +290,10 @@ export default function BirdCage({ freedomLevel, maxLevel, gameState }: BirdCage
       {/* Freedom message */}
       {isFree && (
         <motion.div
-          className="absolute top-full left-0 right-0 text-center mt-2 text-indigo-700 font-bold text-sm sm:text-base"
+          className="absolute top-full left-0 right-0 text-center mt-2 text-indigo-700 font-bold text-xs sm:text-sm"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
         >
           <span className="bg-white/80 px-3 py-1 rounded-full shadow-sm backdrop-blur-sm">Free at last!</span>
         </motion.div>

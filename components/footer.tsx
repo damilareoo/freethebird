@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 
-function SpotifyLogo({ size = 16 }: { size?: number }) {
+function SpotifyLogo({ size = 14 }: { size?: number }) {
   return (
     <div style={{ width: size, height: size }} className="relative">
       <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
@@ -16,13 +16,13 @@ function SpotifyLogo({ size = 16 }: { size?: number }) {
 export default function Footer() {
   return (
     <motion.footer
-      className="w-full max-w-4xl mx-auto py-2 sm:py-3 text-center"
+      className="w-full max-w-4xl mx-auto py-2 text-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.8 }}
     >
-      <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-indigo-600">
-        <span>Built with love, pain and music by</span>
+      <div className="flex items-center justify-center gap-1 text-xs text-indigo-600">
+        <span>Built with love by</span>
         <Link
           href="https://x.com/damilare_oo"
           target="_blank"

@@ -6,6 +6,7 @@ import PlayScreen from "@/components/screens/play-screen"
 import CompletedScreen from "@/components/screens/completed-screen"
 import BirdCage from "@/components/bird-cage"
 import { useGameStore } from "@/lib/game-state"
+import Footer from "@/components/footer"
 
 export default function GameContainer() {
   const gameState = useGameStore((state) => state.gameState)
@@ -13,24 +14,24 @@ export default function GameContainer() {
   const availableQuestions = useGameStore((state) => state.availableQuestions)
 
   return (
-    <div className="game-container">
+    <div className="game-container flex flex-col min-h-[calc(100vh-2rem)] py-4 sm:py-6 md:py-8">
       <GameHeader />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 items-center">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-center">
         <div className="order-2 md:order-1 compact-game">
-          <div className="h-full">
-            <AnimatePresence mode="wait">
-              {gameState === "intro" && <IntroScreen key="intro" />}
-              {gameState === "playing" && <PlayScreen key="playing" />}
-              {gameState === "completed" && <CompletedScreen key="completed" />}
-            </AnimatePresence>
-          </div>
+          <AnimatePresence mode="wait" initial={false}>
+            {gameState === "intro" && <IntroScreen key="intro" />}
+            {gameState === "playing" && <PlayScreen key="playing" />}
+            {gameState === "completed" && <CompletedScreen key="completed" />}
+          </AnimatePresence>
         </div>
 
         <div className="order-1 md:order-2 flex justify-center">
           <BirdCage freedomLevel={correctAnswers} maxLevel={availableQuestions.length} gameState={gameState} />
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }

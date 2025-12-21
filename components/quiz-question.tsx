@@ -40,30 +40,76 @@ export default function QuizQuestion({ question }: QuizQuestionProps) {
       opacity: 1,
       transition: {
         staggerChildren: 0.08,
+        delayChildren: 0.1,
+        duration: 0.5,
+        ease: "easeOut",
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 5 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  }
+
+  const optionVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: 0.1 + i * 0.08,
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    }),
+    hover: {
+      scale: 1.02,
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+      transition: {
+        duration: 0.2,
+      },
+    },
+    tap: {
+      scale: 0.98,
+      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.05)",
+      transition: {
+        duration: 0.1,
+      },
+    },
+    selected: {
+      backgroundColor: "rgba(79, 70, 229, 0.1)",
+      borderColor: "rgba(79, 70, 229, 0.3)",
+      transition: {
+        duration: 0.2,
+      },
+    },
   }
 
   return (
     <motion.div className="flex flex-col h-full" variants={containerVariants} initial="hidden" animate="visible">
-      <motion.h3 variants={itemVariants} className="text-xl font-semibold text-indigo-800 mb-3">
+      <motion.h3 variants={itemVariants} className="text-lg sm:text-xl font-semibold text-indigo-800 mb-3">
         {question.question}
       </motion.h3>
 
-      <div className="flex-1 mb-4">
-        <RadioGroup value={selectedAnswer || ""} onValueChange={handleSelectAnswer} className="space-y-3">
+      <div className="flex-1 mb-3 sm:mb-4 overflow-y-auto">
+        <RadioGroup value={selectedAnswer || ""} onValueChange={handleSelectAnswer} className="space-y-2 sm:space-y-3">
           {question.options.map((option, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              className={`option-card ${selectedAnswer === option ? "selected" : ""}`}
+              custom={index}
+              variants={optionVariants}
+              whileHover="hover"
+              whileTap="tap"
+              animate={selectedAnswer === option ? "selected" : "visible"}
+              className={`option-card transition-smooth ${selectedAnswer === option ? "selected" : ""}`}
               onClick={() => handleSelectAnswer(option)}
             >
               <RadioGroupItem
@@ -71,7 +117,10 @@ export default function QuizQuestion({ question }: QuizQuestionProps) {
                 id={`option-${index}`}
                 className={selectedAnswer === option ? "text-primary" : "text-indigo-400"}
               />
-              <Label htmlFor={`option-${index}`} className="flex-grow cursor-pointer text-base text-indigo-700">
+              <Label
+                htmlFor={`option-${index}`}
+                className="flex-grow cursor-pointer text-sm sm:text-base text-indigo-700"
+              >
                 {option}
               </Label>
             </motion.div>
@@ -79,11 +128,18 @@ export default function QuizQuestion({ question }: QuizQuestionProps) {
         </RadioGroup>
       </div>
 
-      <motion.div variants={itemVariants}>
+      <motion.div
+        variants={itemVariants}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+      >
         <Button
           onClick={handleSubmit}
           disabled={selectedAnswer === null || isSubmitting}
-          className="w-full btn-game text-base"
+          className="w-full btn-game text-sm sm:text-base transition-bounce"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center">

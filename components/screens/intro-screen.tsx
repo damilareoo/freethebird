@@ -9,71 +9,100 @@ import DifficultySelector from "@/components/difficulty-selector"
 export default function IntroScreen() {
   const { startGame, isLoading } = useGameStore()
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.3,
+        ease: "easeIn",
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  }
+
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+        delay: 0.4,
+      },
+    },
+    hover: {
+      scale: 1.05,
+      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      transition: {
+        duration: 0.3,
+      },
+    },
+    tap: {
+      scale: 0.98,
+      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+      transition: {
+        duration: 0.1,
+      },
+    },
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
       className="text-center game-screen"
     >
       <Card className="game-card overflow-hidden">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-          }}
-          className="game-card-content justify-between"
-        >
-          <div className="space-y-6">
-            <motion.h2
-              variants={{
-                hidden: { opacity: 0, y: 10 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              className="text-2xl sm:text-3xl font-bold text-indigo-700"
-            >
+        <div className="game-card-content justify-between">
+          <div className="space-y-4 sm:space-y-5">
+            <motion.h2 variants={itemVariants} className="text-xl sm:text-2xl font-bold text-indigo-700">
               Welcome to the Challenge!
             </motion.h2>
 
-            <motion.p
-              variants={{
-                hidden: { opacity: 0, y: 10 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              className="text-indigo-600 text-base"
-            >
+            <motion.p variants={itemVariants} className="text-indigo-600 text-sm sm:text-base">
               A beautiful bird has been trapped in a cage.
               <br />
               Solve brain teasers correctly to set it free!
             </motion.p>
 
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 10 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              className="pt-2"
-            >
+            <motion.div variants={itemVariants} className="pt-1 sm:pt-2">
               <DifficultySelector />
             </motion.div>
           </div>
 
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 10 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            className="pt-6"
-          >
-            <Button onClick={startGame} className="btn-game text-base" disabled={isLoading}>
+          <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap" className="pt-4 sm:pt-5">
+            <Button
+              onClick={startGame}
+              className="btn-game text-sm sm:text-base transition-bounce"
+              disabled={isLoading}
+            >
               {isLoading ? (
                 <span className="flex items-center">
                   <svg
@@ -103,7 +132,7 @@ export default function IntroScreen() {
               )}
             </Button>
           </motion.div>
-        </motion.div>
+        </div>
       </Card>
     </motion.div>
   )

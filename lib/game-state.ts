@@ -71,7 +71,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
         correctAnswers: 0,
         isLoading: false,
       })
-    }, 300)
+    }, 600) // Slightly longer delay for smoother transition
   },
 
   answerQuestion: (isCorrect) => {
@@ -100,7 +100,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
           showFeedback: false,
         }))
       }
-    }, 1200)
+    }, 1500) // Slightly longer feedback time for better UX
   },
 
   restartGame: () => {
@@ -113,7 +113,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
         correctAnswers: 0,
         isLoading: false,
       })
-    }, 300)
+    }, 600) // Slightly longer delay for smoother transition
   },
 
   // Derived values
