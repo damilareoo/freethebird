@@ -8,18 +8,20 @@ export default function AudioPreloader() {
     // Preload sounds when the component mounts
     preloadSounds()
 
-    // Add a click event listener to the document to enable audio
-    // This helps with browsers that require user interaction before playing audio
+    // Resume AudioContext on first user gesture (required by browsers)
     const enableAudio = () => {
-      const audio = new Audio()
-      audio.play().catch(() => {})
+      const ctx = (window as any).__audioCtx
+      if (ctx && ctx.state === "suspended") ctx.resume().catch(() => {})
       document.removeEventListener("click", enableAudio)
+      document.removeEventListener("touchstart", enableAudio)
     }
 
     document.addEventListener("click", enableAudio)
+    document.addEventListener("touchstart", enableAudio)
 
     return () => {
       document.removeEventListener("click", enableAudio)
+      document.removeEventListener("touchstart", enableAudio)
     }
   }, [])
 

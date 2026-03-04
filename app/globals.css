@@ -4,35 +4,38 @@
 
 @layer base {
   :root {
-    --background: 48 100% 97%;
-    --foreground: 30 10% 10%;
+    /* ── Warm linen palette ── */
+    --background: 36 38% 96%;
+    --foreground: 22 46% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 30 10% 10%;
+    --card-foreground: 22 46% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 30 10% 10%;
+    --popover-foreground: 22 46% 8%;
 
-    --primary: 28 96% 35%;
-    --primary-foreground: 60 9.1% 97.8%;
+    /* Terracotta — the hero colour */
+    --primary: 18 66% 43%;
+    --primary-foreground: 36 38% 96%;
 
-    --secondary: 60 4.8% 95.9%;
-    --secondary-foreground: 24 9.8% 10%;
+    --secondary: 36 20% 91%;
+    --secondary-foreground: 22 46% 8%;
 
-    --muted: 60 4.8% 95.9%;
-    --muted-foreground: 25 5.3% 44.7%;
+    --muted: 36 18% 91%;
+    --muted-foreground: 25 24% 44%;
 
-    --accent: 60 4.8% 95.9%;
-    --accent-foreground: 24 9.8% 10%;
+    /* Canary yellow — bird accent */
+    --accent: 44 84% 52%;
+    --accent-foreground: 22 46% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9.1% 97.8%;
+    --destructive: 4 70% 38%;
+    --destructive-foreground: 36 38% 96%;
 
-    --border: 30 5.9% 90%;
-    --input: 30 5.9% 90%;
-    --ring: 28 96% 35%;
+    --border: 34 20% 84%;
+    --input: 34 20% 84%;
+    --ring: 18 66% 43%;
 
-    --radius: 0.5rem;
+    --radius: 0.2rem;
   }
 }
 
@@ -40,7 +43,12 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: hsl(36, 38%, 96%); }
+  ::-webkit-scrollbar-thumb { background: hsl(34, 20%, 78%); border-radius: 2px; }
 }
