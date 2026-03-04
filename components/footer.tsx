@@ -12,14 +12,15 @@ function SpotifyLogo({ size = 24 }: { size?: number }) {
 
 export default function Footer() {
   return (
-    <footer className="w-full max-w-4xl mx-auto mt-8 text-center text-amber-700 text-sm">
-      <div className="flex items-center justify-center gap-2">
+    <footer className="w-full max-w-4xl mx-auto mt-14 pb-6 text-center">
+      <div className="w-16 h-px bg-border/60 mx-auto mb-5" />
+      <div className="flex items-center justify-center gap-2 text-muted-foreground text-[10px] uppercase tracking-[0.2em]">
         <span>Built with love, pain and music by</span>
         <Link
           href="https://x.com/damilare_oo"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-medium text-amber-800 hover:text-amber-900 transition-colors"
+          className="font-semibold text-foreground hover:text-primary transition-colors normal-case tracking-normal"
         >
           Damilare
         </Link>
